@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addItem } from "../../redux/action";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 const Product = () => {
   const { id } = useParams();
@@ -24,10 +26,28 @@ const Product = () => {
     getProduct();
   }, [id]);
 
-  const Loading = () => <div className="text-center text-lg">Loading...</div>;
+  const Loading = () => (
+    <div className="w-full h-full flex flex-col md:flex-row gap-4 p-4">
+      <div className="w-full md:w-1/2">
+        <Skeleton className="rounded-lg" height={400} />
+      </div>
+      <div className="w-full md:w-1/2 flex flex-col gap-4">
+        <Skeleton width={200} height={30} />
+        <Skeleton width={300} height={40} />
+        <Skeleton width={100} height={20} />
+        <Skeleton width={150} height={30} />
+        <Skeleton height={80} />
+        <div className="flex gap-4">
+          <Skeleton width={150} height={50} />
+          <Skeleton width={150} height={50} />
+          <Skeleton width={150} height={50} />
+        </div>
+      </div>
+    </div>
+  );
 
   return (
-    <div className="h-[calc(100vh-4rem)] flex items-center justify-center bg-gray-200">
+    <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-gray-200">
       {loading ? (
         <Loading />
       ) : (
